@@ -25,5 +25,11 @@ router.post('/booking', jwtmiddleware, bookingController.addBookingController);
 // Get user Booking
 router.get('/user-booking',jwtmiddleware,bookingController.getUserVazhipadController)
 
+// remove user vazhipad
+router.delete('/remove-uservazipad/:id',jwtmiddleware,bookingController.removeUserVazhipadController)
+
+// update user vazhipad
+router.put('/update-uservazipad/:id',jwtmiddleware,bookingController.updateUserVazhipadController)
+
 // 6. Export Router
 module.exports = router;
