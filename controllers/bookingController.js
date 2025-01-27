@@ -24,9 +24,16 @@ exports.addBookingController = async (req, res) => {
 
 // get user vazhipad
 exports.getUserVazhipadController = async (req, res) => {
+    const searchKey = req.query.search
+    console.log(searchKey);
     const userId = req.payload
+    // const query = {
+    //     vazhipad: {         
+    //         $regex: searchKey, $options: "i"
+    //     }
+    // }
     try {
-        const allVazipad = await bookings.find({ userId })
+        const allVazipad = await bookings.find({userId})
         res.status(200).json(allVazipad)
     } catch (error) {
         res.status(401).json(error)
@@ -45,19 +52,18 @@ exports.removeUserVazhipadController = async (req, res) => {
 }
 
 // update user vazhipad
-
-exports.updateUserVazhipadController = async(req,res)=>{
-    const {id} = req.params
+exports.updateUserVazhipadController = async (req, res) => {
+    const { id } = req.params
     const userId = req.payload
 
-    const{name,star,vazhipad,date} = req.body
+    const { name, star, vazhipad, date } = req.body
     try {
-        const existingBooking = await bookings.findByIdAndUpdate({_id:id},{
+        const existingBooking = await bookings.findByIdAndUpdate({ _id: id }, {
             name,
             star,
             vazhipad,
             date
-        },{new:true})
+        }, { new: true })
         await existingBooking.save()
         res.status(200).json(existingBooking)
     } catch (error) {

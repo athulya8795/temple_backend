@@ -45,3 +45,23 @@ exports.login = async (req, res) => {
         res.status(401).json(error)
     }
 }
+
+// update user profile
+exports.updateUserProfileController=async(req,res)=>{
+     const userId = req.payload
+     const {username,email,password,profileImg,role} = req.body
+     uploadImg = req.file?req.file.filename:profileImg
+     try {
+        const existingUser = await users.findByIdAndUpdate({_id:userId},{
+            username,
+            email,
+            password,
+            profileImg:uploadImg,
+            role
+        },{new:true})
+        await existingUser.save()
+        res.status(200).json(existingUser)
+     } catch (error) {
+        res.status(401).json(error)
+     }
+}

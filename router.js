@@ -8,6 +8,9 @@ const bookingController = require('./controllers/bookingController');
 // 3. Import Middleware
 const jwtmiddleware = require('./middleware/jwtMiddleware');
 
+// import multer
+const multerConfig = require('./middleware/multerMiddleware')
+
 // 4. Initialize Router
 const router = new express.Router();
 
@@ -30,6 +33,9 @@ router.delete('/remove-uservazipad/:id',jwtmiddleware,bookingController.removeUs
 
 // update user vazhipad
 router.put('/update-uservazipad/:id',jwtmiddleware,bookingController.updateUserVazhipadController)
+
+// update user profile
+router.put('/update-userprofile',jwtmiddleware,multerConfig.single("profileImg"), userController.updateUserProfileController)
 
 // 6. Export Router
 module.exports = router;
