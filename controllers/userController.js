@@ -35,8 +35,8 @@ exports.login = async (req, res) => {
     try {
         const existingUser = await users.findOne({ email, password })
         if (existingUser) {
-            const token = jwt.sign({ userId:existingUser._id},'secretkey')
-            res.status(200).json({existingUser,token})
+            const token = jwt.sign({ userId: existingUser._id }, 'secretkey')
+            res.status(200).json({ existingUser, token })
         }
         else {
             res.status(406).json("Incorrect email or password")
@@ -47,21 +47,21 @@ exports.login = async (req, res) => {
 }
 
 // update user profile
-exports.updateUserProfileController=async(req,res)=>{
-     const userId = req.payload
-     const {username,email,password,profileImg,role} = req.body
-     uploadImg = req.file?req.file.filename:profileImg
-     try {
-        const existingUser = await users.findByIdAndUpdate({_id:userId},{
+exports.updateUserProfileController = async (req, res) => {
+    const userId = req.payload
+    const { username, email, password, profileImg, role } = req.body
+    uploadImg = req.file ? req.file.filename : profileImg
+    try {
+        const existingUser = await users.findByIdAndUpdate({ _id: userId }, {
             username,
             email,
             password,
-            profileImg:uploadImg,
+            profileImg: uploadImg,
             role
-        },{new:true})
+        }, { new: true })
         await existingUser.save()
         res.status(200).json(existingUser)
-     } catch (error) {
+    } catch (error) {
         res.status(401).json(error)
-     }
+    }
 }

@@ -33,7 +33,7 @@ exports.getUserVazhipadController = async (req, res) => {
     //     }
     // }
     try {
-        const allVazipad = await bookings.find({userId})
+        const allVazipad = await bookings.find({ userId })
         res.status(200).json(allVazipad)
     } catch (error) {
         res.status(401).json(error)
