@@ -1,3 +1,4 @@
+const testimonies = require('../model/testimonyModel');
 const Testimony = require('../model/testimonyModel');
 
 // Add Testimony
@@ -36,5 +37,40 @@ exports.getTestimonies = async (req, res) => {
   } catch (error) {
     console.error('Error fetching testimonies:', error);
     res.status(500).json({ success: false, message: "Failed to fetch testimonies", error: error.message });
+  }
+};
+
+// get all testimony in admin
+exports.getTestimonyController = async (req, res) => {
+  try {
+      const allTestimony = await testimonies.find()
+      res.status(200).json(allTestimony)
+  } catch (error) {
+      res.status(401).json(error)
+  }
+}
+
+exports.updateFeedbackStatusController = async (req, res) => {
+  console.log("Inside updateFeedbackStatusController");
+
+  try {
+      // Get feedback ID from URL parameters
+      const { id } = req.params;
+      const { status } = req.body; // Get status from request body instead of query
+
+      // Check if feedback exists
+      const existingFeedback = await testimonies.findById(id);
+      if (!existingFeedback) {
+          return res.status(404).json({ message: "Feedback not found" });
+      }
+
+      // Update feedback status
+      existingFeedback.status = status;
+      await existingFeedback.save();
+
+      res.status(200).json({ message: "Feedback status updated successfully", feedback: existingFeedback });
+  } catch (error) {
+      console.error("Error updating feedback status:", error);
+      res.status(500).json({ message: "Internal Server Error", error });
   }
 };

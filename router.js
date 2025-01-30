@@ -41,5 +41,16 @@ router.put('/update-userprofile', jwtmiddleware, multerConfig.single("profileImg
 router.post("/add", testimonyController.addTestimony);
 router.get("/all", testimonyController.getTestimonies);
 
+// get all bookings
+router.get('/all-bookings',bookingController.getAllBookingController)
+
+// get all testimony
+router.get('/all-testimony',testimonyController.getTestimonyController)
+
+// get all users
+router.get('/all-users',userController.getUserController)
+
+router.put('/testimony/:id/update', jwtmiddleware, testimonyController.updateFeedbackStatusController);
+
 // 6. Export Router
 module.exports = router;

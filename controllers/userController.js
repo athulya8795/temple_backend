@@ -65,3 +65,13 @@ exports.updateUserProfileController = async (req, res) => {
         res.status(401).json(error)
     }
 }
+
+// get all users in admin
+exports.getUserController = async (req, res) => {
+    try {
+        const allUser = await users.find().skip(1)
+        res.status(200).json(allUser)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+  }

@@ -70,3 +70,13 @@ exports.updateUserVazhipadController = async (req, res) => {
         res.status(401).json(error)
     }
 }
+
+// get all vazhipad
+exports.getAllBookingController = async (req, res) => {
+    try {
+        const allBookings = await bookings.find()
+        res.status(200).json(allBookings)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}
