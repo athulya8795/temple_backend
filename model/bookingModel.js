@@ -6,6 +6,7 @@ const bookingSchema = new mongoose.Schema({
     date: { type: Date, required: true },
     vazhipad: { type: String, required: true },
     userId: { type: String, required: true },
+    status: { type: String, default: "Pending" }
 });
 
 const bookings = mongoose.model('bookings', bookingSchema);

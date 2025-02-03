@@ -38,19 +38,26 @@ router.put('/update-uservazipad/:id', jwtmiddleware, bookingController.updateUse
 // update user profile
 router.put('/update-userprofile', jwtmiddleware, multerConfig.single("profileImg"), userController.updateUserProfileController)
 
+// add testimony
 router.post("/add", testimonyController.addTestimony);
+
+// display the testimony
 router.get("/all", testimonyController.getTestimonies);
 
-// get all bookings
-router.get('/all-bookings',bookingController.getAllBookingController)
+// get all bookings - admin side
+router.get('/all-bookings', bookingController.getAllBookingController)
 
-// get all testimony
-router.get('/all-testimony',testimonyController.getTestimonyController)
+// get all testimony - admin side
+router.get('/all-testimony', testimonyController.getTestimonyController)
 
-// get all users
-router.get('/all-users',userController.getUserController)
+// get all users - admin side
+router.get('/all-users', userController.getUserController)
 
-router.put('/testimony/:id/update', jwtmiddleware, testimonyController.updateFeedbackStatusController);
+// admin side - booking
+router.put('/update-status/:id', bookingController.updateBookingStatus);
+
+// admin-side - testimony
+router.put('/update-testimony/:id', testimonyController.updateFeedbackStatusController);
 
 // 6. Export Router
 module.exports = router;

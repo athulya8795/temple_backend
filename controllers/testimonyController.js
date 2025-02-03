@@ -50,9 +50,9 @@ exports.getTestimonyController = async (req, res) => {
   }
 }
 
+// update the testimony
 exports.updateFeedbackStatusController = async (req, res) => {
   console.log("Inside updateFeedbackStatusController");
-
   try {
       // Get feedback ID from URL parameters
       const { id } = req.params;
@@ -63,11 +63,9 @@ exports.updateFeedbackStatusController = async (req, res) => {
       if (!existingFeedback) {
           return res.status(404).json({ message: "Feedback not found" });
       }
-
       // Update feedback status
       existingFeedback.status = status;
       await existingFeedback.save();
-
       res.status(200).json({ message: "Feedback status updated successfully", feedback: existingFeedback });
   } catch (error) {
       console.error("Error updating feedback status:", error);
